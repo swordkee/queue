@@ -126,6 +126,26 @@ func (q *Queue) QueueTask(task job.TaskFunc, opts ...job.AllowOption) error {
 	return q.queue(data)
 }
 
+// AddWorker to enable all worker
+func (q *Queue) AddWorker(size int, opts ...Option) *Queue {
+	o := []Option{
+		WithWorkerCount(size),
+		WithWorker(NewRing(opts...)),
+	}
+	o = append(
+		o,
+		opts...,
+	)
+
+	q, err := NewQueue(o...)
+	if err != nil {
+		panic(err)
+	}
+
+	q.Start()
+
+	return q
+}
 func (q *Queue) queue(m *job.Message) error {
 	if atomic.LoadInt32(&q.stopFlag) == 1 {
 		return ErrQueueShutdown
