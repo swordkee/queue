@@ -7,8 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/golang-queue/queue/core"
-	"github.com/golang-queue/queue/job"
+	"github.com/swordkee/queue/core"
+	"github.com/swordkee/queue/job"
 )
 
 // ErrQueueShutdown the queue is released and closed.
@@ -113,7 +113,7 @@ func (q *Queue) Wait() {
 }
 
 // Queue to queue single job with binary
-func (q *Queue) Queue(message core.QueuedMessage, opts ...job.AllowOption) error {
+func (q *Queue) Queue(ctx context.Context, message core.QueuedMessage, opts ...job.AllowOption) error {
 	data := job.NewMessage(message, opts...)
 	data.Encode()
 
@@ -131,7 +131,7 @@ func (q *Queue) queue(m *job.Message) error {
 		return ErrQueueShutdown
 	}
 
-	if err := q.worker.Queue(m); err != nil {
+	if err := q.worker.Queue(context.Background(), m); err != nil {
 		return err
 	}
 

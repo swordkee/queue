@@ -5,7 +5,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/golang-queue/queue/core"
+	"github.com/swordkee/queue/core"
 )
 
 var _ core.Worker = (*Ring)(nil)
@@ -45,7 +45,7 @@ func (s *Ring) Shutdown() error {
 }
 
 // Queue send task to the buffer channel
-func (s *Ring) Queue(task core.QueuedMessage) error { //nolint:stylecheck
+func (s *Ring) Queue(ctx context.Context, task core.QueuedMessage) error { //nolint:stylecheck
 	if atomic.LoadInt32(&s.stopFlag) == 1 {
 		return ErrQueueShutdown
 	}

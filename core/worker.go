@@ -11,7 +11,7 @@ type Worker interface {
 	// Shutdown is called if stop all worker
 	Shutdown() error
 	// Queue to send message in Queue
-	Queue(task QueuedMessage) error
+	Queue(ctx context.Context, task QueuedMessage) error
 	// Request to get message from Queue
 	Request() (QueuedMessage, error)
 }

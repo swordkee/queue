@@ -5,7 +5,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/golang-queue/queue/core"
+	"github.com/swordkee/queue/core"
 )
 
 // TaskFunc is the task function
