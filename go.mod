@@ -1,4 +1,4 @@
-module github.com/golang-queue/queue
+module github.com/swordkee/queue
 
 go 1.18
 
