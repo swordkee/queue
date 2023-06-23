@@ -65,6 +65,12 @@ func (s *Ring) Queue(ctx context.Context, task core.QueuedMessage) error { //nol
 	return nil
 }
 
+// QueueAsync send task to the buffer channel
+func (s *Ring) QueueAsync(ctx context.Context, task core.QueuedMessage) error { //nolint:stylecheck
+	//todo
+	return nil
+}
+
 // Request a new task from channel
 func (s *Ring) Request() (core.QueuedMessage, error) {
 	if atomic.LoadInt32(&s.stopFlag) == 1 && s.count == 0 {

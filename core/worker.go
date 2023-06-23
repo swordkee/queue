@@ -12,6 +12,8 @@ type Worker interface {
 	Shutdown() error
 	// Queue to send message in Queue
 	Queue(ctx context.Context, task QueuedMessage) error
+	// QueueAsync to send message in QueueAsync
+	QueueAsync(ctx context.Context, task QueuedMessage) error
 	// Request to get message from Queue
 	Request() (QueuedMessage, error)
 }
